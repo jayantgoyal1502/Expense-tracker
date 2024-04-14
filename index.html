@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense-tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f6f9fc;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container h2, .container h3 {
+            margin-top: 0;
+            color: #3a3a3a;
+        }
+        
+        input[type="text"], select, input[type="number"], input[type="submit"] {
+            margin-bottom: 20px;
+            width: calc(100% - 16px);
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            box-sizing: border-box;
+            background-color: #e8f0fe;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input[type="text"]:focus, select:focus, input[type="number"]:focus, input[type="submit"]:focus {
+            outline: none;
+            border-color: #3a77f8;
+            box-shadow: 0 0 10px rgba(58, 119, 248, 0.3);
+        }
+        
+        input[type="submit"] {
+            background-color: #ffb300;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #ffcc00;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3a77f8;
+            color: white;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <form action="" id="expenseForm">
+            <input type="text" id="description" placeholder="Expense Description" required/> <br>
+            <select name="" id="category" required>
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+            </select> <br>
+            <input type="number" id="amount" placeholder="Amount" required><br>
+            <input type="submit" value="Add Expense">
+        </form>
+
+        <h3>Expense Summary</h3>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="expenseList">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const expenseForm = document.getElementById('expenseForm')
+        const expenseList = document.getElementById('expenseList')
+
+        expenseForm.addEventListener('submit', function(event){
+            event.preventDefault();
+
+            const description = document.getElementById('description').value;
+            const category = document.getElementById('category').value;
+            const amount = document.getElementById('amount').value;
+
+            if(document && category && !isNaN(amount)){
+                const newRow = document.createElement('tr')
+
+                newRow.innerHTML = `<td>${description}</td>
+                <td>${category}</td>
+                <td>${amount}</td>`
+
+                expenseList.appendChild(newRow)
+
+                document.getElementById('description').value=''
+            document.getElementById('category').value=''
+            document.getElementById('amount').value=''
+            }else{
+                alert('Please fill out all fields with valid data')
+            }
+        })
+    </script>
+</body>
+</html>
